@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+
 interface taskType {
     id: number;
     title: string;
@@ -13,14 +14,14 @@ const initialState = {
     loading: false,
     error: null as string | null | undefined,
 };
-const fetchTodo = createAsyncThunk("fetchTodo", async()=>{
+export const fetchTodo = createAsyncThunk("fetchTodo", async()=>{
     const response = await fetch("https://jsonplaceholder.typicode.com/todos?_limit=5")
     const todoData = await response.json();
-    return todoData.map((task : taskType)=>({
-        id: task.id,
-        title: task.title,
+    return todoData.map((tasks : taskType)=>({
+        id: tasks.id,
+        title: tasks.title,
         description: '',
-        status: task.completed ? "complete" : "To Do",
+        status: tasks.completed ? "complete" : "To Do",
     }))
        
 })
