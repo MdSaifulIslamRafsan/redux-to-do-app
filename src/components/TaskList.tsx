@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import RootState  from "../app/store";
+import  { RootState, AppDispatch }  from "../app/store";
 import { useEffect } from "react";
 import { fetchTodo } from "../features/taskSlice/taskSlice";
 
@@ -11,14 +11,13 @@ interface taskType {
 } 
 const TaskList = () => {
     const tasks = useSelector((state : RootState) => state.tasks.tasks);
-    console.log(tasks);
     
     const loading = useSelector((state : RootState) => state.tasks.loading);
     const error = useSelector((state : RootState) => state.tasks.error);
-    const dispatch = useDispatch()
+    const dispatch : AppDispatch = useDispatch()
     useEffect(()=>{
         dispatch(fetchTodo())
-    },[])
+    },[dispatch])
   
     if(loading) return <p>Loading...</p>;
     if(error) return <p>This is an error{error}</p>;

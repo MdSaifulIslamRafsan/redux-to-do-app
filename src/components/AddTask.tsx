@@ -4,9 +4,12 @@ const AddTask = () => {
     function handleSubmit(e : React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
        
-            const title  = e.target.title.value;
-            const description = e.target.description.value;
-            const status = e.target.status.value;
+        const form = e.target as HTMLFormElement;
+        const title = (form.elements.namedItem('title') as HTMLInputElement).value;
+        const description = (form.elements.namedItem('description') as HTMLTextAreaElement).value;
+        const status = (form.elements.namedItem('status') as HTMLSelectElement).value;
+
+        console.log({ title, description, status });
     
 
        
