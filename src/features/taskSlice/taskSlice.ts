@@ -29,7 +29,11 @@ export const fetchTodo = createAsyncThunk("fetchTodo", async()=>{
 export const taskSlice = createSlice({
     name: "tasks",
     initialState: initialState,
-    reducers: {},
+    reducers: {
+        addTask: (state, action) => {
+            state.tasks.push(action.payload);
+        },
+    },
     extraReducers:(builder) =>{ 
         builder.addCase(fetchTodo.pending, (state)=>{
             state.loading = true;
@@ -46,4 +50,5 @@ export const taskSlice = createSlice({
     }
 })
 
+export const { addTask } = taskSlice.actions;
 export default taskSlice.reducer;

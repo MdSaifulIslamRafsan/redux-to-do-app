@@ -1,6 +1,10 @@
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../app/store";
+import { addTask } from "../features/taskSlice/taskSlice";
+
 
 const AddTask = () => {
-   
+    const dispatch : AppDispatch = useDispatch();
     function handleSubmit(e : React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
        
@@ -9,11 +13,11 @@ const AddTask = () => {
         const description = (form.elements.namedItem('description') as HTMLTextAreaElement).value;
         const status = (form.elements.namedItem('status') as HTMLSelectElement).value;
 
-        console.log({ title, description, status });
+      
+        dispatch(addTask({ title, description, status }));
+        
     
 
-       
-        // e.target.reset(); 
     }
     return (
         <div className="flex my-10 flex-col justify-center items-center">
