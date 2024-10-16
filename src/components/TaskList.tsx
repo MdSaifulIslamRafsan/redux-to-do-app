@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import  { RootState, AppDispatch }  from "../app/store";
 import { useEffect } from "react";
-import { fetchTodo } from "../features/taskSlice/taskSlice";
+import { deleteTask, fetchTodo } from "../features/taskSlice/taskSlice";
 
 interface taskType {
     id: number,
@@ -17,7 +17,10 @@ const TaskList = () => {
     const dispatch : AppDispatch = useDispatch()
     useEffect(()=>{
         dispatch(fetchTodo())
-    },[dispatch])
+    },[dispatch]);
+    const handleDelete = (taskId)=>{
+        dispatch(deleteTask(taskId))
+    }
   
     if(loading) return <p>Loading...</p>;
     if(error) return <p>This is an error{error}</p>;
@@ -37,7 +40,7 @@ const TaskList = () => {
                         </div>
                         <div>
                             <button className="bg-green-500 text-white px-10 py-2 rounded-md mr-4">Edit</button>
-                            <button className="bg-red-500 text-white px-8 py-2 rounded-md ">Delete</button>
+                            <button onClick={()=> handleDelete(task.id)} className="bg-red-500 text-white px-8 py-2 rounded-md ">Delete</button>
                         </div>
                     </div>
 

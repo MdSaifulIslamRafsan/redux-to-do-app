@@ -33,6 +33,12 @@ export const taskSlice = createSlice({
         addTask: (state, action) => {
             state.tasks.push(action.payload);
         },
+        deleteTask: (state, action) => {
+            const index = state.tasks.findIndex((task) => task.id === action.payload);
+            if (index >= 0) {
+                state.tasks.splice(index, 1);
+            }
+         },
     },
     extraReducers:(builder) =>{ 
         builder.addCase(fetchTodo.pending, (state)=>{
@@ -48,7 +54,8 @@ export const taskSlice = createSlice({
             state.error = action.error.message;
         })
     }
-})
+});
 
+export const { deleteTask } = taskSlice.actions;
 export const { addTask } = taskSlice.actions;
 export default taskSlice.reducer;
