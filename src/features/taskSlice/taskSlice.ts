@@ -39,6 +39,14 @@ export const taskSlice = createSlice({
                 state.tasks.splice(index, 1);
             }
          },
+        editTask: (state, action) => {
+            state.tasks = state.tasks.map(task => {
+                 if(task.id === action.payload.id){
+                     return action.payload;
+                 }
+                 return task;
+            });
+          },
     },
     extraReducers:(builder) =>{ 
         builder.addCase(fetchTodo.pending, (state)=>{
@@ -58,4 +66,5 @@ export const taskSlice = createSlice({
 
 export const { deleteTask } = taskSlice.actions;
 export const { addTask } = taskSlice.actions;
+export const { editTask } = taskSlice.actions;
 export default taskSlice.reducer;
